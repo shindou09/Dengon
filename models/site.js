@@ -6,7 +6,10 @@
  * To change this template use File | Settings | File Templates.
  */
 
+var Promise = require('promise');
 var Site = function () {};
+
+Site.__promise__ = require('../db').connect();
 
 Site.prototype.constructor = function (o) {
     this._site = o || {};
@@ -26,8 +29,16 @@ Object.defineProperties(Site.prototype, {
     }
 });
 
-Site.prototype.insert = function () {
-
+Site.prototype.save = function () {
+    var self = this;
+    return Site__promise__.then(function (db) {
+        var siteCollection = db.collection('site');
+        var insertOne = Promise.denodeify(siteCollection.insertOne);
+        return insertOne(self._site).then(function (result) {
+            db.close();
+            return result;
+        }, function (err) {throw err;});
+    });
 };
 
 module.exports = Site;
