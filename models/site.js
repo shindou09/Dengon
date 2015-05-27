@@ -34,7 +34,22 @@ Site.prototype.save = function () {
         return insertOne.apply(siteCollection, [self._site]).then(function (result) {
             db.close();
             return result;
-        }, function (err) {console.error(err);});
+        }, function (err) {throw new Error('数据保存错误');});
+    },function (err) {throw new Error('数据库连接错误!');});
+};
+
+Site.prototype.update = function () {
+    var self = this;
+    if (!this._site._id) {
+        return new Promise(function () {}).then(null, function () {throw new Error('_id为空');});
+    }
+    return Site.__promise__.then(function (db) {
+        var siteCollection = db.collection('site');
+        var update = Promise.denodeify(siteCollection.updateOne);
+        return update.apply(siteCollection, [{"_id": self._site._id}, {$set: {"domain": self.domain}}, {w: 1}]).then(function (result) {
+            db.close();
+            return result;
+        },function(err){throw new Error('更新数据错误!');});
     });
 };
 
