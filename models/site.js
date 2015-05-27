@@ -7,22 +7,19 @@
  */
 
 var Promise = require('promise');
-var Site = function () {};
+function Site(o) {
+    this._site = o || {};
+}
 
 Site.__promise__ = require('../db').connect();
 
-Site.prototype.constructor = function (o) {
-    this._site = o || {};
-};
-
 Object.defineProperties(Site.prototype, {
     "id": {
-        writable: false,
         enumerable: true,
-        get: function () {return this._site._id;}
+        get: function () {return this._site._id;},
+        set: function (_id) {this._site._id = _id;}
     },
     "domain": {
-        writable: true,
         enumerable: true,
         get: function () {return this._site.domain;},
         set: function (domain) {this._site.domain = domain;}
@@ -31,13 +28,13 @@ Object.defineProperties(Site.prototype, {
 
 Site.prototype.save = function () {
     var self = this;
-    return Site__promise__.then(function (db) {
+    return Site.__promise__.then(function (db) {
         var siteCollection = db.collection('site');
         var insertOne = Promise.denodeify(siteCollection.insertOne);
-        return insertOne(self._site).then(function (result) {
+        return insertOne.apply(siteCollection, [self._site]).then(function (result) {
             db.close();
             return result;
-        }, function (err) {throw err;});
+        }, function (err) {console.error(err);});
     });
 };
 
