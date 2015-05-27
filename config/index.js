@@ -3,7 +3,7 @@
  */
 
 var config = {
-    DB_url: "mogodb://localhost:27107/dengon_db"
+    DB_url: "mongodb://localhost:27017/dengon_db"
 };
 
 module.exports = config;
