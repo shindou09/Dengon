@@ -34,7 +34,7 @@ Site.prototype.save = function () {
         return insertOne.apply(siteCollection, [self._site]).then(function (result) {
             db.close();
             return result;
-        }, function (err) {throw new Error('数据保存错误');});
+        }, function (err) {db.close();throw new Error('数据保存错误');});
     },function (err) {throw new Error('数据库连接错误!');});
 };
 
@@ -49,7 +49,7 @@ Site.prototype.update = function () {
         return update.apply(siteCollection, [{"_id": self._site._id}, {$set: {"domain": self.domain}}, {w: 1}]).then(function (result) {
             db.close();
             return result;
-        },function(err){throw new Error('更新数据错误!');});
+        },function(err){db.close();throw new Error('更新数据错误!');});
     });
 };
 
