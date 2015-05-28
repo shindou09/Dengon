@@ -53,4 +53,28 @@ Site.prototype.update = function () {
     });
 };
 
+Site.find = function (selector) {
+    return Site.__promise__.then(function (db) {
+        var siteCollection = db.collection('site');
+        var cursor = siteCollection.find(selector);
+        var toArray = Promise.denodeify(cursor.toArray);
+        return toArray.apply(cursor).then(function (docs) {
+            db.close();
+            var sites = docs.map(function (doc) {return new Site(doc)});
+            return sites;
+        }, function (err) {db.close();throw new Error('查询错误!');});
+    }, function (err) {throw new Error('数据库连接错误!');});
+};
+
+Site.findOne = function (_id) {
+    return Site.__promise__.then(function (db) {
+        var siteCollection = db.collection('site');
+        var findOne = Promise.denodeify(siteCollection.findOne);
+        return findOne.apply(siteCollection, [{"_id": _id}]).then(function (doc) {
+            db.close();
+            return new Site(doc);
+        }, function (err) {db.close();throw new Error('查询错误!');});
+    }, function (err) {throw new Error('数据库连接错误!');});
+};
+
 module.exports = Site;
