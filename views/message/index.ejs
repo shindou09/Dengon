@@ -4,10 +4,10 @@
     <title>留言</title>
     <link href="/fontPage/css/index.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="/fontPage/css/uniform.default.css" type="text/css" media="screen"/>
-    <script src="/fontPage/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="/fontPage/jquery.uniform.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/fontPage/js/jquery.min.js" type="text/javascript"></script>
+    <script src="/fontPage/jquery.uniform.min.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
-    <script type="text/javascript" charset="utf-8">
+    <script type="text/javascript">
         $(function(){
             $("input, textarea, select, button").uniform();
         });
@@ -50,6 +50,7 @@
             var okName="0";
             var okTel="0";
             var okEmail="0";
+            var okDate="0";
             if(userName==""||userName==null)
             {
                 document.getElementById("nameTs").innerHTML="<font style='color: red;'>姓名不能为空！</font>";
@@ -92,6 +93,12 @@
                     okEmail="1"
                 }
 
+            }
+            if (date=="" || date==null) {
+                document.getElementById("dates").innerHTML="<font style='color: red;'>留言时间不能为空！</font>";
+            } else {
+                document.getElementById("dates").innerHTML="";
+                okDate="1"
             }
             if(okName=="1"&&okTel=="1"&&okEmail=="1")
             {
@@ -164,8 +171,8 @@
                             </tr>
                             <tr>
                                 <td style="font-size:12px; font-weight:bold; line-height:43px;">留言时间：</td>
-                                <td><input class="Wdate" name="date" id="date" type="text" size="40" onfocus="WdatePicker({skin:'twoer',minDate:'%y-%M-{%d}',dateFmt:'yyyy年MM月dd日 HH时mm分'})"/></td>
-                                <td>&nbsp;</td>
+                                <td><input class="Wdate" name="date" id="date" type="text" size="40" onfocus="WdatePicker({skin:'twoer',minDate:'%y-%M-{%d}',dateFmt:'yyyy-MM-dd HH:mm'})"/></td>
+                                <td id="dates">&nbsp;</td>
                             </tr>
                             <tr>
                                 <td style="font-size:12px; font-weight:bold; line-height:43px;">留言内容</td>
@@ -176,16 +183,11 @@
                                 <td height="50" align="center" colspan="3"><input type="button" value="提交留言信息" onclick="submitData()"/>&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="从新设置"/></td>
                             </tr>
                         </table>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-
 </div>
 
 </body>
