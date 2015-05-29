@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var serveStatic = require('serve-static');
 var bodyParser = require('body-parser');
+var moment = require('moment');
 
 var site = require('./routes/site');
 var message = require('./routes/message');
@@ -56,6 +57,8 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+app.locals.moment = moment;
 
 
 module.exports = app;
