@@ -85,7 +85,7 @@ Message.prototype.save = function () {
     });
 };
 
-Message.prototype.reply = function () {
+Message.prototype.doReply = function () {
     var self = this;
     return Message.__promise__.then(function (db) {
         var messageCollection = db.collection('message');
@@ -119,12 +119,22 @@ Message.find = function (selector,options) {
 Message.count = function (selector) {
     return Message.__promise__.then(function (db) {
         var messageCollection = db.collection('message');
-        var cursor = messageCollection.find(selector);
-        var count = Promise.denodeify(cursor.count);
-        return count.apply(cursor).then(function (count) {
+        var count = Promise.denodeify(messageCollection.count);
+        return count.apply(messageCollection).then(function (count) {
             db.close();
             return count;
         }, function (err) {throw new Error('查询错误!');});
+    }, function (err) {throw new Error('数据库连接错误!');});
+};
+
+Message.findOne = function (_id) {
+    return Site.__promise__.then(function (db) {
+        var messageCollection = db.collection('message');
+        var findOne = Promise.denodeify(messageCollection.findOne);
+        return findOne.apply(messageCollection, [{"_id": _id}]).then(function (doc) {
+            db.close();
+            return new Message(doc);
+        }, function (err) {db.close();throw new Error('查询错误!');});
     }, function (err) {throw new Error('数据库连接错误!');});
 };
 
