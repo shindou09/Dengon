@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* CSS Document */
+body{ background-image:url(../images/bg.gif);}
+.ly_con_up{ float:left; width:95%; height:auto; font-size:14px; color:#333; margin-left:1.5%; text-align:justify; border:1px solid #CCC; margin-top:15px; margin-bottom:10px;}
+.ly_con_tit{float:left; font-size:14px; width:50%; color:#333; padding-left:1%; line-height:30px; background-color:#F7F7F7}
+.ly_con_tit_sp{float:left; font-size:14px; color:#F60; margin-right:1%;}
+.ly_con_txt{ float:left;font-size:14px; width:95%; height:auto; color:#666;line-height:30px; margin-left:35px; margin-top:10px;}
+.ly_con_time{float:left; font-size:12px;width:30%; color:#888; padding-left:2%; text-align:left; line-height:30px; background-color:#F7F7F7}
+.ly_con_btn{float:left; font-size:12px; width:10%; color:#666; padding-left:1%; line-height:30px; background-color:#F7F7F7}
+
+/* .ly_down{ float:left; width:95%; height:auto; font-size:14px; color:#333; margin-left:1.5%;text-align:justify;border:1px solid #CCC;border-top:none; margin-bottom:5px;}
+.ly_aus_tit{float:left; font-size:14px;width:50%; color:#333; padding-right:1%; line-height:30px; background-color:#F7F7F7}
+.ly_aus_txt{ float:left;font-size:14px; width:95%; height:auto; color:#666;line-height:30px; margin-left:35px; margin-top:10px;}
+.ly_aus_time{ float:left; font-size:12px;width:36%; color:#888;padding-right:2%; text-align:right; line-height:30px; background-color:#F7F7F7} */
