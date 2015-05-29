@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+body{ background-image:url(../images/bg.gif);}
+.ly_up{ float:left; width:950px; height:auto; font-size:14px; color:#333; margin-left:15px; text-align:justify; border:1px solid #CCC;border-bottom:1px solid #EBEBEB; margin-top:15px;}
+.ly_que_tit{float:left; font-size:14px; width:600px; color:#333; padding-left:10px; line-height:30px; background-color:#F7F7F7}
+.ly_que_txt{ float:left;font-size:14px; width:900px; height:auto; color:#666;line-height:30px; margin-left:35px; margin-top:10px;}
+.ly_que_time{float:left; font-size:12px;width:320px; color:#888; padding-right:20px; text-align:right; line-height:30px; background-color:#F7F7F7}
+
+.ly_down{ float:left; width:950px; height:auto; font-size:14px; color:#333; margin-left:15px;text-align:justify;border:1px solid #CCC;border-top:none; margin-bottom:5px;}
+.ly_aus_tit{float:left; font-size:14px;width:600px; color:#333; padding-left:10px; line-height:30px; background-color:#F7F7F7}
+.ly_aus_txt{ float:left;font-size:14px; width:900px; height:auto; color:#666;line-height:30px; margin-left:35px; margin-top:10px;}
+.ly_aus_time{ float:left; font-size:12px;width:320px; color:#888;padding-right:20px; text-align:right; line-height:30px; background-color:#F7F7F7}
