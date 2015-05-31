@@ -25,7 +25,7 @@ app.use(cookieParser());
 app.use(serveStatic('public', {index: false}));
 
 app.use('/site', site);
-app.user('/site/:siteId/message', message);
+app.use('/message', message);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
