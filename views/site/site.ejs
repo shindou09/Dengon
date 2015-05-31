@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>留言系统</title>
+    <script type="application/javascript" src="/fontPage/js/jquery.min.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            $('#editSiteBtn').click(function () {
+                var url = '/site/' + $('#siteId').val()+'/';
+                $.post(url, {
+                    "_method": "put",
+                    "domain" : $('#domainInput').val()
+                } , function (data) {
+                    if (data.success) {
+                        alert('网站修改成功');
+                        window.location.href="/site/";
+                    } else {
+                        alert('网站修改失败');
+                    }
+                }, 'json');
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+<input type="hidden" id="siteId" value="<%=site._id%>"/>
+<form action="/site/" method="post" target="_self">
+    <table width="300" align="center" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td width="100">网站域名</td>
+            <td>
+                <input type="text" id="domainInput" name="domain" value="<%=site.domain%>"/>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right">
+                <input type="submit" value="添加" id="editSiteBtn"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

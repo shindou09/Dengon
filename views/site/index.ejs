@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>留言系统</title>
+</head>
+<body style="font-size: 14px;">
+
+<table width="532" border="1" align="center" cellpadding="3" cellspacing="1" bordercolorlight="#cccccc" bordercolordark="#Ffffff" bgcolor="#f7f7f7">
+    <tr>
+        <td align="right" valign="bottom">
+            <a href="/site/add.html" class="aCls" lang="txt">添加网站</a>
+        </td>
+    </tr>
+</table>
+
+<table width="532" border="1" align="center" cellpadding="3" cellspacing="1" bordercolorlight="#cccccc" bordercolordark="#Ffffff" bgcolor="#f7f7f7" style="margin-top: 6px;">
+    <tr align="center"  bgcolor="FFF7D2" class="font121">
+        <td width="46">序号</td>
+        <td>网站域名</td>
+        <td width="150">操作</td>
+    </tr>
+    <%sites.forEach(function (site, index) {%>
+    <tr align="center"  bgcolor="FFF7D2" class="font121">
+        <td><%= (index + 1)%></td>
+        <td><%=site.domain%></td>
+        <td>
+            <a href="/site/<%=site.id%>/">修改</a>&nbsp;<a href="/message/site/<%=site.id%>/replyList/1">留言</a>&nbsp;<a href="/message/site/<%=site.id%>/" target="_blank">留言页面</a>
+        </td>
+    </tr>
+    <%})%>
+</table>
+
+</body>
+</html>
