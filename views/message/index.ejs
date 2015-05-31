@@ -116,7 +116,10 @@
                     },
                     dataType:"json",
                     success: function(data){
-                        if (data.success) {alert('留言成功!');}
+                        if (data.success) {
+                            alert('留言成功!');
+                            window.location.href=$('#formAction').val()+'list/1';
+                        }
                     },
                     error: function(msg){
                         alert(msg);

@@ -4,9 +4,32 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>无标题文档</title>
     <link href="/css/liuyan_con.css" rel="stylesheet" type="text/css" />
+    <script type="application/javascript">
+        $(function () {
+            $('.delA').click(function () {
+                var url= '/message/site/' + $('#siteId').val() +'/reply/' + $(this).data('id') + '/';
+                if (widnow.confim('您确定要删除此条留言吗?')) {
+                    $.ajax({
+                        url: url,
+                        type: 'delete',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.success) {
+                                alert('留言删除成功!');
+                            } else {
+                                alert('留言删除失败!');
+                            }
+                        }
+                    });
+                }
+                return false;
+            });
+        });
+    </script>
 </head>
 
 <body>
+<input type="hidden" id="siteId" value="<%=siteId%>"/>
 <%if(list){%>
 <%list.forEach(function(message){%>
 <table width="85%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#fff">
@@ -15,7 +38,7 @@
             <div class="ly_con_tit_sp"><%=moment(message.date).format('YYYY-MM-DD HH:mm:ss')%></div>
             | <%=message.name%></div>
             <div class="ly_con_tit">问题：<%=message.title%></div>
-            <div class="ly_con_btn"><a href="/message/site/<%=message.siteId%>/reply/<%=message._id%>/">回复</a> | <a href="#" data-id="<%=message._id%>">删除</a></div>
+            <div class="ly_con_btn"><a href="/message/site/<%=message.siteId%>/reply/<%=message._id%>/">回复</a> | <a class="delA" href="#" data-id="<%=message._id%>">删除</a></div>
             <div class="ly_con_txt">
                 <%=message.contents%>
                 </div></td>
