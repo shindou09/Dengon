@@ -86,7 +86,6 @@ router.get('/site/:siteId/reply/:messageId', function (req, res) {
 router.post('/site/:siteId/reply/:messageId', function (req, res) {
     var messageId = req.params.messageId;
     var message = new Message({_id: messageId});
-    console.log(req.body);
     message.isReply=true;
     message.reply =req.body;
 //    message.reply.contents = req.body.contents;
@@ -95,6 +94,17 @@ router.post('/site/:siteId/reply/:messageId', function (req, res) {
         res.json({success: result});
     }, function (err) {
         res.json({error: err});
+    });
+});
+
+router.delete('/site/:siteId/reply/:messageId', function (req, res) {
+    var messageId = req.params.messageId;
+    Message.remove({_id: messageId}, function (err) {
+        if (err) {
+            res.json({success: false});
+        } else {
+            res.json({success: true});
+        }
     });
 });
 
