@@ -41,7 +41,7 @@
         function submitData()
         {
             //alert(ipAddress);
-            var userName=$('#name').val();
+            var userName=$('#userName').val();
             var userPhone=$('#phone').val();
             var title=$("#title").val();
             var contents=$("#contents").attr("value");
@@ -84,7 +84,7 @@
             if (email==""||email==null) {
                 document.getElementById("emails").innerHTML="<font style='color: red;'>联系邮箱不能为空！</font>";
             }else{
-                reg = /^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/;
+                reg = /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/;
                 if(!reg.test(email)){
                     document.getElementById("emails").innerHTML="<font style='color: red;'>邮箱地址不正确！</font>";
                     return false;
@@ -100,7 +100,7 @@
                 document.getElementById("dates").innerHTML="";
                 okDate="1"
             }
-            if(okName=="1"&&okTel=="1"&&okEmail=="1")
+            if(okName=="1"&&okTel=="1"&&okEmail=="1"&&okDate=="1")
             {
                 $.ajax({
                     type: "POST",
@@ -110,11 +110,13 @@
                         "phone": userPhone,
                         "email": email,
                         "date": date,
-                        "contents": contents
+                        "title":title,
+                        "contents": contents,
+                        "site": $('#siteName').val()
                     },
                     dataType:"json",
-                    success: function(msg){
-
+                    success: function(data){
+                        if (data.success) {alert('留言成功!');}
                     },
                     error: function(msg){
                         alert(msg);
@@ -138,7 +140,8 @@
 </head>
 <body>
 <div class="mian">
-    <input type="hidden" id="formAction" value="/site/<%=siteId%>/message/"/>
+    <input type="hidden" id="siteName" value="<%=domain%>"/>
+    <input type="hidden" id="formAction" value="/message/site/<%=siteId%>/"/>
     <div class="main_con">
         <div class="right">
             <div class="right_con">
@@ -171,7 +174,7 @@
                             </tr>
                             <tr>
                                 <td style="font-size:12px; font-weight:bold; line-height:43px;">留言时间：</td>
-                                <td><input class="Wdate" name="date" id="date" type="text" size="40" onfocus="WdatePicker({skin:'twoer',minDate:'%y-%M-{%d}',dateFmt:'yyyy-MM-dd HH:mm'})"/></td>
+                                <td><input class="Wdate" name="date" id="date" type="text" size="40" onfocus="WdatePicker({skin:'twoer',minDate:'%y-%M-{%d}',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></td>
                                 <td id="dates">&nbsp;</td>
                             </tr>
                             <tr>

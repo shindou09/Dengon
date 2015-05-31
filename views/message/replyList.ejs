@@ -3,51 +3,38 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>无标题文档</title>
-    <link href="css/liuyan_con.css" rel="stylesheet" type="text/css" />
+    <link href="/css/liuyan_con.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
+<%if(list){%>
+<%list.forEach(function(message){%>
 <table width="85%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#fff">
     <tr class="ly_con_up">
-        <td align="left" valign="middle"><div class="ly_con_time"><div class="ly_con_tit_sp">2015-05-03 18:22:37</div> | 张小四</div><div class="ly_con_tit">问题：关于天津市政府办公厅的政府普查问题？</div><div class="ly_con_btn">回复 | 删除</div>
-            <div class="ly_con_txt">这里是问题啊问题，天津市政府办公厅的政府普查问题，我们近期会做出相应的处理，您了管好自己的是请该干嘛干嘛去！离我们远点儿，省的溅您身上血，特此声明此件事儿的严重性！偶也！</div></td>
-    </tr>
-</table>
-<table width="85%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#fff">
-    <tr class="ly_con_up">
-        <td align="left" valign="middle"><div class="ly_con_time">
-            <div class="ly_con_tit_sp">2015-05-03 18:22:37</div>
-            | 张小四</div>
-            <div class="ly_con_tit">问题：关于天津市政府办公厅的政府普查问题？</div>
-            <div class="ly_con_btn">回复 | 删除</div>
+        <td align="left" valign="middle" width="100%"><div class="ly_con_time">
+            <div class="ly_con_tit_sp"><%=moment(message.date).format('YYYY-MM-DD HH:mm:ss')%></div>
+            | <%=message.name%></div>
+            <div class="ly_con_tit">问题：<%=message.title%></div>
+            <div class="ly_con_btn"><a href="/message/site/<%=message.siteId%>/reply/<%=message._id%>/">回复</a> | <a href="#" data-id="<%=message._id%>">删除</a></div>
             <div class="ly_con_txt">
-                这里是问题啊问题，天津市政府办公厅的政府普查问题，我们近期会做出相应的处理，您了管好自己的是请该干嘛干嘛去！离我们远点儿，省的溅您身上血，特此声明此件事儿的严重性！偶也！
+                <%=message.contents%>
                 </div></td>
     </tr>
+    <%if (message.isReply) {%>
+    <tr class="ly_down">
+        <td align="left" valign="middle"><div class="ly_aus_tit">您的回复信息</div><div class="ly_aus_time">回复时间：<%=moment(message.reply.date).format('YYYY-MM-DD HH:mm')%></div>
+            <div class="ly_aus_txt"><%=message.reply.contents%></div></td>
+    </tr>
+    <%}%>
 </table>
-<table width="85%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#fff">
-    <tr class="ly_con_up">
-        <td align="left" valign="middle"><div class="ly_con_time">
-            <div class="ly_con_tit_sp">2015-05-03 18:22:37</div>
-            | 张小四</div>
-            <div class="ly_con_tit">问题：关于天津市政府办公厅的政府普查问题？</div>
-            <div class="ly_con_btn">回复 | 删除</div>
-            <div class="ly_con_txt">
-                这里是问题啊问题，天津市政府办公厅的政府普查问题，我们近期会做出相应的处理，您了管好自己的是请该干嘛干嘛去！离我们远点儿，省的溅您身上血，特此声明此件事儿的严重性！偶也！
-                </div></td>
+<%});%>
+<table align="center" width="100" cellspacing="0" cellpadding="0" bgcolor="#fff">
+    <tr align="center">
+        <td width="50"><a <%if(isPrePage){%>href="/site/<%=siteId%>/message/replyList/<%=(currentPage - 1)%>"<%}%>>上一页</a></td>
+        <td width="50"><a <%if(isNextPage){%>href="/site/<%=siteId%>/message/replyList/<%=(currentPage + 1)%>"<%}%>>下一页</a></td>
     </tr>
 </table>
-<table width="85%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#fff">
-    <tr class="ly_con_up">
-        <td align="left" valign="middle"><div class="ly_con_time">
-            <div class="ly_con_tit_sp">2015-05-03 18:22:37</div>
-            | 张小四</div>
-            <div class="ly_con_tit">问题：关于天津市政府办公厅的政府普查问题？</div>
-            <div class="ly_con_btn">回复 | 删除</div>
-            <div class="ly_con_txt">
-                这里是问题啊问题，天津市政府办公厅的政府普查问题，我们近期会做出相应的处理，您了管好自己的是请该干嘛干嘛去！离我们远点儿，省的溅您身上血，特此声明此件事儿的严重性！偶也！
-                </div></td>
-    </tr>
-</table>
+<%}%>
+
 </body>
 </html>

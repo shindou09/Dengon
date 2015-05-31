@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>无标题文档</title>
+    <link href="/css/liuyan.css" rel="stylesheet" type="text/css" />
+    <script type="application/javascript" src="/fontPage/js/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript" src="/My97DatePicker/WdatePicker.js"></script>
+    <script type="application/javascript">
+        $(function () {
+            $('#huifuBtn').click(function () {
+                if ($('#date').val()=="") {
+                    alert('请选择回复时间!');
+                    return false;
+                }
+                if ($('#contents').val()=="") {
+                    alert('请填写回复内容!');
+                    return false;
+                }
+                var url='/message/site/' + $('#siteId').val() +'/reply/' + $('#messageId').val() +'/';
+                $.post(url, {
+                    type: "1",
+                    date: $('#date').val(),
+                    contents: $('#contents').val()
+                }, function (data) {
+                    if (data.success) {
+                        alert('回复成功!');
+                    } else {
+                        alert('回复失败!');
+                    }
+                }, 'json');
+                return false;
+            });
+        });
+    </script>
+</head>
+
+<body>
+<input type="hidden" id="siteId" value="<%=siteId%>"/>
+<input type="hidden" id="messageId" value="<%=message._id%>"/>
+<table width="980" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#fff">
+    <tr class="ly_up">
+        <td align="left" valign="middle"><div class="ly_que_tit">
+                问题：<%=message.titel%></div><div class="ly_que_time">名称：<%=message.name%>  | 发布时间：<%=moment(message.date).format('YYYY-MM-DD HH:mm')%></div>
+            <div class="ly_que_txt"><%=message.contents%></div></td>
+    </tr>
+
+    <tr class="ly_down">
+        <td align="left" valign="middle"><div class="ly_aus_tit">您的回复信息</div><div class="ly_aus_time">回复时间：<input type="text" id="date" name="date" style="width: 100px;"  onfocus="WdatePicker({skin:'twoer',minDate:'%y-%M-{%d}',dateFmt:'yyyy-MM-dd HH:mm:ss'})"/></div>
+            <div class="ly_aus_txt">
+                <textarea style="width: 95%;"  rows="5" name="contents" id="contents"></textarea>
+            </div></td>
+    </tr>
+</table>
+<p align="center"><button id="huifuBtn">回复</button></p>
+
+</body>
+</html>
