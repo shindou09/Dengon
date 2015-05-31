@@ -25,6 +25,7 @@
                 }, function (data) {
                     if (data.success) {
                         alert('回复成功!');
+                        window.location.href='/message/site/' + $('#siteId').val() +'/replyList/1';
                     } else {
                         alert('回复失败!');
                     }
