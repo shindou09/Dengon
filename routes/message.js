@@ -10,10 +10,11 @@ var express = require('express');
 var router = express.Router();
 var Site = require('../models/site');
 var Message = require('../models/message');
+var moment = require('moment');
 
-router.get('/', function (req, res) {
-    var siteId = req.param.siteId;
-    Site.findOne(siteId).then(function (site) {
+router.get('/site/:siteId', function (req, res) {
+    var siteId = req.params.siteId;
+    Site.findById(siteId).exec().then(function (site) {
         var obj = {
             domain: site.domain,
             siteId: site.id
@@ -24,68 +25,74 @@ router.get('/', function (req, res) {
     });
 });
 
-router.post('/', function (req, res) {
-    console.log(req.body);
+router.post('/site/:siteId', function (req, res) {
     var message = new Message(req.body);
+    message.siteId = req.params.siteId;
     message.save().then(function (result) {
-        var tag = {success: result.insertedCount > 0};
+        var tag = {success: result};
         res.json(tag);
     }, function (err) {
         res.json({error: err});
     });
 });
 
-router.get('/list/:page', function (req, res) {
-    var siteId = req.param.siteId;
-    var page = req.param.page || 1;
+router.get('/site/:siteId/list/:page', function (req, res) {
+    var siteId = req.params.siteId;
+    var page = req.params.page || 1;
+    var pageSize = 10;
+    var skip = (page - 1) * pageSize;
     var selector = {"siteId": siteId};
-    Message.count(selector).then(function (count) {
+    Message.count(selector).exec().then(function (count) {
         if (count <= 0 ) {
             res.render('message/list', {list: null});
         } else {
-            return Message.find(selector, {nowPage: page});
+            Message.find(selector, null, {skip: skip, limit: pageSize, sort: {"date": -1}}).exec().then(function (messages) {
+                var pageNumber = Math.ceil(count / pageSize);
+                res.render('message/list', {"siteId": siteId, list: messages, isNextPage: page < pageNumber, isPrePage: page > pageNumber, currentPage: page});
+            });
         }
-    }).then(function (messages) {
-            res.render('message/list', {list: messages, count: count});
-        }, function (err) {
-            res.render('error', err);
-        });;
+    });
 });
 
-router.get('/replyList/:page', function (req, res) {
-    var siteId = req.param.siteId;
-    var page = req.param.page || 1;
+router.get('/site/:siteId/replyList/:page', function (req, res) {
+    var siteId = req.params.siteId;
+    var page = req.params.page || 1;
+    var pageSize = 10;
+    var skip = (page - 1) * pageSize;
     var selector = {"siteId": siteId};
-    Message.count(selector).then(function (count) {
+    Message.count(selector).exec().then(function (count) {
+        console.log(count);
         if (count <= 0 ) {
             res.render('message/replyList', {list: null});
         } else {
-            return Message.find(selector, {nowPage: page});
+            return Message.find(selector, null, {skip: skip, limit: pageSize, sort: {"date": -1}}).exec().then(function(messages) {
+                var pageNumber = Math.ceil(count / pageSize);
+                res.render('message/replyList', {siteId: siteId, list: messages, isNextPage: page < pageNumber, isPrePage: page > pageNumber,currentPage: page});
+            });
         }
-    }).then(function (messages) {
-            res.render('message/replyList', {list: messages, count: count});
-        }, function (err) {
-            res.render('error', err);
-        });;
+    });
 });
 
-router.get('/reply/:messageId', function (req, res) {
-    var siteId = req.param.siteId;
-    var messageId = req.param.messageId;
-    Message.findOne(messageId).then(function (message) {
-        res.render('message/reply', {message: message});
+router.get('/site/:siteId/reply/:messageId', function (req, res) {
+    var siteId = req.params.siteId;
+    var messageId = req.params.messageId;
+    Message.findById(messageId).exec().then(function (message) {
+        res.render('message/reply', {message: message, siteId: siteId});
     }, function (err) {
         res.render('error', err);
     });
 });
 
-router.put('/reply/:messageId', function (req, res) {
-    var messageId = req.param.messageId;
+router.post('/site/:siteId/reply/:messageId', function (req, res) {
+    var messageId = req.params.messageId;
     var message = new Message({_id: messageId});
-    message.reply = req.body;
+    console.log(req.body);
+    message.isReply=true;
+    message.reply =req.body;
+//    message.reply.contents = req.body.contents;
+//    message.reply.date = moment(req.body.date, 'YYYY-MM-DD HH:mm:ss');
     message.doReply().then(function (result) {
-        console.log(result);
-        res.json({success: true});
+        res.json({success: result});
     }, function (err) {
         res.json({error: err});
     });

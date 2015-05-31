@@ -11,37 +11,38 @@ var router = express.Router();
 var Site = require('../models/site');
 
 router.get('/', function (req, res) {
-    Site.find().then(function (sites) {
-        res.render('site/index', sites);
+    Site.find().exec().then(function (sites) {
+        res.render('site/index', {sites: sites});
     }, function (err) {
         res.render('error', err);
     });
 });
 
-router.post('/', function (req, res) {
+router.post('/create/', function (req, res) {
     var site = new Site(req.body);
     site.save().then(function (result) {
-        res.json({success: result.insertedCount > 0});
+        res.json({success: result});
     }, function (err) {
-        res.render('error', err);
+        res.render('error', {error:err});
     });
 });
 
 router.get('/:siteId', function (req, res) {
-    var siteId = req.param.siteId;
-    Site.findOne(siteId).then(function (site) {
-        res.render('site/site', site);
+    var siteId = req.params.siteId;
+    Site.findById(siteId).exec().then(function (site) {
+        console.log(site);
+        res.render('site/site', {site: site});
     }, function (err) {
         res.render('error', err);
     });
 });
 
-router.put('/:siteId', function (req, res) {
-    var siteId = req.param.siteId;
+router.post('/:siteId', function (req, res) {
+    var siteId = req.params.siteId;
     var site = new Site(req.body);
-    site.id = siteId;
-    site.update().then(function (r) {
-        res.json({success:true});
+    site._id = siteId;
+    site.updateSite().then(function (r) {
+        res.json({success: r});
     }, function (err) {
         res.render('error', err)
     });
