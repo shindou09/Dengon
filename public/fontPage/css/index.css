@@ -1,6 +1,6 @@
 /* CSS Document */
 * { margin:0; padding:0;}
-body { font-size:12px; font-family:Arial; background:#e9e9e9; color:#131313;}
+body { font-size:12px; font-family:Arial; background:#ffffff; color:#131313;}
 html,body,div,p,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,input,select,button,textarea,iframe,table,th,td{margin:0;padding:0}
 img{border:none;vertical-align:top}
 ul,li {list-style-type:none}
@@ -10,7 +10,7 @@ p {font-size:12px;}
 a{ color:#000000; text-decoration:none;}
 a:hover{ color:#F90; text-decoration:none;}
 
-/*--------------------Í·²¿ start--------------------------------*/
+/*--------------------Í·ï¿½ï¿½ start--------------------------------*/
 .top{ width:100%; height:149px; background:url(../img/headbg.jpg) repeat-x;}
 .head{ width:1033px; height:149px; margin:0 auto;}
 .head_top{ width:1033px; height:100px;}
@@ -27,11 +27,11 @@ a:hover{ color:#F90; text-decoration:none;}
 .nav_left{ width:14px; height:49px;}
 .nav_right{ width:15px; height:49px; padding-left:19px;}
 
-/*---------------------Ö÷Ìå²¿·Ö start-----------------------------*/
-.mian{ width:983px; background:url(../img/mianbg.jpg) repeat-y; margin:0 auto; padding-left:25px; padding-right:25px; padding-top:5px; padding-bottom:10px; }
-.main_con{width:983px;height:704px;margin:0 auto;margin-bottom:10px;}
-.left{width:265px;height:704px;float:left;}
-.right{width:983px;height:704px;float:right;}
+/*---------------------ï¿½ï¿½ï¿½å²¿ï¿½ï¿½ start-----------------------------*/
+.mian{ width:800px; padding-bottom:10px; margin: 0 auto;}
+.main_con{width:930px;height:480px;margin:0 auto;margin-bottom:10px;}
+.left{width:265px;height:480px;float:left;}
+.right{width:930px;height:480px;float:right;}
 .left_zx{width:265px;height:208px;}
 .left_lylx{width:245px;height:426px;margin-top:10px;background: url(../img/lylx.jpg) no-repeat;padding:50px 10px 10px 10px }
 .left_lylx_gj{width:245px;height:12px;margin-top:10px;}
@@ -45,9 +45,9 @@ b{ color:#FF0000 ;}
     height: 50px;
     line-height: 50px;
     width: 983px;}
-.right_con{width:983px;margin-top:10px;border: #CCCCCC 1px solid;}
-.right_con_bt{width:943px;margin: 20px;font-size:25px;text-align:center;font-weight:bold;}
-.right_con_nr{width:983px;font-size:20px;}
+.right_con{width:800px;margin-top:10px;border: #CCCCCC 1px solid;}
+.right_con_bt{width:800px;margin: 20px;font-size:25px;text-align:center;font-weight:bold;}
+.right_con_nr{width:800px;font-size:20px;}
 .right_con_form{margin: 0 auto;
     width: 456px;}
 .right_con_wxts{ background: url("../img/logo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -58,7 +58,7 @@ b{ color:#FF0000 ;}
 .right_con_wxts b{color:#FF0000}
 .right_con_tjan{width:98px;height:33px;margin-left:303px;margin-top:10px;}
 
-/*---------------------µ×²¿ start-----------------------------*/
-.foot{width:980px;height:42px;margin:0 auto;background:url(../img/topdh_bg.jpg) repeat-x;text-align:center;line-height:42px;}
+/*---------------------ï¿½×²ï¿½ start-----------------------------*/
+.foot{width:930px;height:42px;margin:0 auto;background:url(../img/topdh_bg.jpg) repeat-x;text-align:center;line-height:42px;}
 .foot a{font-size:14px;color:#FFFFFF;}
 .bottom{ width:980px; height:160px;  background:#eaeaea; text-align:center; line-height:30px; padding-top:25px;}
