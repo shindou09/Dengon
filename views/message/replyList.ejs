@@ -4,11 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>无标题文档</title>
     <link href="/css/liuyan_con.css" rel="stylesheet" type="text/css" />
-    <script type="application/javascript">
+    <script src="/fontPage/js/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
         $(function () {
             $('.delA').click(function () {
                 var url= '/message/site/' + $('#siteId').val() +'/reply/' + $(this).data('id') + '/';
-                if (widnow.confim('您确定要删除此条留言吗?')) {
+                if (window.confirm('您确定要删除此条留言吗?')) {
                     $.ajax({
                         url: url,
                         type: 'delete',
@@ -16,6 +17,7 @@
                         success: function (data) {
                             if (data.success) {
                                 alert('留言删除成功!');
+                                window.location.reload();
                             } else {
                                 alert('留言删除失败!');
                             }
@@ -45,7 +47,7 @@
     </tr>
     <%if (message.isReply) {%>
     <tr class="ly_down">
-        <td align="left" valign="middle"><div class="ly_aus_tit">您的回复信息</div><div class="ly_aus_time">回复时间：<%=moment(message.reply.date).format('YYYY-MM-DD HH:mm')%></div>
+        <td align="left" valign="middle"><div class="ly_aus_tit">回复信息</div><div class="ly_aus_time">回复时间：<%=moment(message.reply.date).format('YYYY-MM-DD HH:mm')%></div>
             <div class="ly_aus_txt"><%=message.reply.contents%></div></td>
     </tr>
     <%}%>
